@@ -1,10 +1,10 @@
 import hc.checker.Checker
+import hc.checker.Checker.CheckerEnv
 import zio._
-import zio.console.putStrLn
-import zio.console.Console
+import zio.console.{Console, putStrLn}
 
 object Main extends App {
-  val env: ULayer[Has[Checker.Service] with Console] = Checker.dummy ++ Console.live
+  val env: ULayer[CheckerEnv with Console] = Checker.dummy ++ Console.live
 
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = {
     val prog = for {
