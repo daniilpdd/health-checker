@@ -1,9 +1,10 @@
 package hc.checker
 
+import zhttp.service.{ChannelFactory, EventLoopGroup}
 import zio._
 
 object Checker {
-  type CheckerEnv = Has[Service]
+  type Checker = Has[Service]
 
   sealed trait CheckError
   case object TimeoutError extends CheckError
@@ -13,9 +14,9 @@ object Checker {
     def check(uri: String): IO[CheckError, Int]
   }
 
-  val dummy: ULayer[Has[Service]] = ZLayer.succeed(new Service {
+  val dummy: ULayer[Checker] = ZLayer.succeed(new Service {
     override def check(uri: String): IO[CheckError, Int] = ZIO.succeed(println(s"[print] $uri")).as(1)
   })
 
-  def check(uri: String): ZIO[CheckerEnv, CheckError, Int] = ZIO.accessM[CheckerEnv](_.get.check(uri))
+  def check(uri: String): ZIO[Checker, CheckError, Int] = ZIO.accessM[Checker](_.get.check(uri))
 }
