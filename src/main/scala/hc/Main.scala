@@ -1,14 +1,16 @@
+package hc
+
 import hc.checker.{Checker, CheckerDummy, CheckerZHttp}
 import zhttp.service.{ChannelFactory, EventLoopGroup}
-import zio._
 import zio.clock.Clock
 import zio.console.{Console, putStrLn}
+import zio.{App, ExitCode, ULayer, URIO}
 
 object Main extends App {
   val env: ULayer[Checker with Console] =
     ChannelFactory.auto ++
-    EventLoopGroup.auto() ++
-    Clock.live >>> CheckerZHttp.live ++
+      EventLoopGroup.auto() ++
+      Clock.live >>> CheckerZHttp.live ++
       Console.live
 
   val dummyEnv: ULayer[Checker with Console] = Console.live >>> CheckerDummy.live ++ Console.live
@@ -23,7 +25,7 @@ object Main extends App {
       fiber <- program.provideLayer(env).fork
       _ <- program.provideLayer(dummyEnv)
       _ <- fiber.join
-    } yield()
+    } yield ()
 
 
     bothEnvTest.exitCode
