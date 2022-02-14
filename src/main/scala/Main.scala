@@ -1,17 +1,31 @@
-import hc.checker.Checker
-import hc.checker.Checker.Checker
+import hc.checker.{Checker, CheckerDummy, CheckerZHttp}
+import zhttp.service.{ChannelFactory, EventLoopGroup}
 import zio._
+import zio.clock.Clock
 import zio.console.{Console, putStrLn}
 
 object Main extends App {
-  val env: ULayer[Checker with Console] = Checker.dummy ++ Console.live
+  val env: ULayer[Checker with Console] =
+    ChannelFactory.auto ++
+    EventLoopGroup.auto() ++
+    Clock.live >>> CheckerZHttp.live ++
+      Console.live
+
+  val dummyEnv: ULayer[Checker with Console] = Console.live >>> CheckerDummy.live ++ Console.live
 
   override def run(args: List[String]): URIO[zio.ZEnv, ExitCode] = {
-    val prog = for {
+    val program = for {
       delay <- Checker.check("https://www.google.com")
-      _ <- putStrLn(delay.toString)
+      _ <- putStrLn(s"[${Thread.currentThread().getName}] - ${delay.toString}")
     } yield ()
 
-    prog.provideLayer(env).exitCode
+    val bothEnvTest = for {
+      fiber <- program.provideLayer(env).fork
+      _ <- program.provideLayer(dummyEnv)
+      _ <- fiber.join
+    } yield()
+
+
+    bothEnvTest.exitCode
   }
 }
