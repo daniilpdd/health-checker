@@ -4,9 +4,20 @@ import hc.checker.{Checker, CheckerDummy, CheckerZHttp}
 import zhttp.service.{ChannelFactory, EventLoopGroup}
 import zio.clock.Clock
 import zio.console.{Console, putStrLn}
-import zio.{App, ExitCode, ULayer, URIO}
+import zio.logging.slf4j.Slf4jLogger
+import zio.logging.{LogAnnotation, Logging, log}
+import zio.{App, ExitCode, ULayer, URIO, URLayer, ZIO}
 
 object Main extends App {
+  val logFormat = "[correlation-id = %s] %s"
+  val consoleLoggingEnv: URLayer[Console with Clock, Logging] =
+    Slf4jLogger.make { (logCtx, msg) =>
+      val correlationId = LogAnnotation.CorrelationId.render(
+        logCtx.get(LogAnnotation.CorrelationId)
+      )
+      logFormat.format(correlationId, msg)
+    }
+
   val env: ULayer[Checker with Console] =
     ChannelFactory.auto ++
       EventLoopGroup.auto() ++
@@ -25,9 +36,13 @@ object Main extends App {
       fiber <- program.provideLayer(env).fork
       _ <- program.provideLayer(dummyEnv)
       _ <- fiber.join
+      _ <- ZIO.fail(new RuntimeException("oops"))
     } yield ()
 
 
-    bothEnvTest.exitCode
+    bothEnvTest
+      .tapError(err => log.error(err.toString))
+      .provideLayer(consoleLoggingEnv)
+      .exitCode
   }
 }
