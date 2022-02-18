@@ -1,12 +1,11 @@
 package hc.checker
 
-import hc.checker.Checker.CheckError
 import zio._
 import zio.console.Console
 
 final class CheckerDummy(console: Console.Service) extends Checker.Service {
-  override def check(url: String): IO[CheckError, Long] =
-    console.putStrLn(s"[dummy print] $url").mapBoth(_ => Checker.NotAvailableError, _ => 1L)
+  override def check(url: String): Task[Long] =
+    console.putStrLn(s"[dummy print] $url").as(1L)
 }
 
 object CheckerDummy {

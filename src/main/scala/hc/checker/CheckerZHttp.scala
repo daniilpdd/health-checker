@@ -4,20 +4,18 @@ import zhttp.http.{Method, URL}
 import zhttp.service.Client.ClientRequest
 import zhttp.service.{ChannelFactory, Client, EventLoopGroup}
 import zio.clock.Clock
-import zio.{IO, URIO, ZIO, ZLayer}
+import zio.{Task, URIO, ZIO, ZLayer}
 
 import java.util.concurrent.TimeUnit
 
 final class CheckerZHttp(client: Client, clock: Clock.Service) extends Checker.Service {
-  override def check(url: String): IO[Checker.CheckError, Long] = {
-    val responseTime = for {
+  override def check(url: String): Task[Long] = {
+    for {
       url <- ZIO.fromEither(URL.fromString(url))
       startTime <- clock.currentTime(TimeUnit.MILLISECONDS)
       _ <- client.request(ClientRequest(Method.GET, url))
       finishTime <- clock.currentTime(TimeUnit.MILLISECONDS)
     } yield finishTime - startTime
-
-    responseTime.orElseFail(Checker.NotAvailableError)
   }
 }
 
