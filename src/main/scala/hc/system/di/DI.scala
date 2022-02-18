@@ -18,7 +18,7 @@ object DI {
 
   val appEnv: Layer[Throwable, Logging with Checker] =
     logger ++
-//      config ++
-//      transactor ++
+      config ++
+      transactor ++
       zHttp
 }

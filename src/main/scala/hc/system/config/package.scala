@@ -9,8 +9,7 @@ package object config {
   type Config = Has[PostgresConfig]
 
   object Config {
-    private lazy val basePath = "hc"
-    private lazy val source = ConfigSource.default.at(basePath)
+    private lazy val source = ConfigSource.default
 
     val live: ZLayer[Logging, Throwable, Config] =
       Task
