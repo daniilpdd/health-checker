@@ -12,6 +12,7 @@ val catsEffectV = "3.3.5"
 val interopVersion = "3.2.9.1"
 val configVersion = "0.17.1"
 val refinedV = "0.9.28"
+val zioJsonVersion = "0.2.0-M3"
 
 lazy val root = (project in file("."))
   .settings(
@@ -32,7 +33,8 @@ lazy val root = (project in file("."))
       "org.typelevel" %% "cats-effect" % catsEffectV,
       "dev.zio" %% "zio-interop-cats" % interopVersion,
       "com.github.pureconfig" %% "pureconfig" % configVersion,
-      "eu.timepit" %% "refined-pureconfig" % refinedV
+      "eu.timepit" %% "refined-pureconfig" % refinedV,
+      "dev.zio" %% "zio-json-yaml" % zioJsonVersion
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
   )

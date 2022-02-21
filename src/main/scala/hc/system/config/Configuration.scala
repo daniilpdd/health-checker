@@ -1,5 +1,6 @@
 package hc.system.config
 
-case class Configuration(
-                        postgresConfig: PostgresConfig
-                        )
+final case class Configuration(
+                                postgresConfig: PostgresConfig,
+                                yamlConfig: YamlConfig
+                              )

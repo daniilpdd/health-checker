@@ -6,7 +6,7 @@ import zio.logging.{Logging, log}
 import zio.{Has, Task, URIO, ZIO, ZLayer}
 
 package object config {
-  type Config = Has[PostgresConfig]
+  type Config = Has[PostgresConfig] with Has[YamlConfig]
 
   object Config {
     private lazy val source = ConfigSource.default
@@ -14,10 +14,11 @@ package object config {
     val live: ZLayer[Logging, Throwable, Config] =
       Task
         .effect(source.loadOrThrow[Configuration])
-        .map(cfg => cfg.postgresConfig)
         .tapBoth(err => log.error(s"Error loading config $err"), cfg => log.info(s"Successful loading config: $cfg"))
         .toLayer
+        .map(c => Has(c.get.postgresConfig) ++ Has(c.get.yamlConfig))
 
     val dbConfig: URIO[Has[PostgresConfig], PostgresConfig] = ZIO.service
+    val yamlConfig: URIO[Has[YamlConfig], YamlConfig] = ZIO.service
   }
 }
