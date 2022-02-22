@@ -12,7 +12,7 @@ class DummyPersistence(console: Console.Service) extends CheckPersistence.Servic
   override def getByUrl(url: String): Task[Seq[Check]] =
     console.putStrLn(s"Query result from db by url: Seq()").as(Seq[Check]())
 
-  override def getByUrlAndDate(url: String, beginDate: Date, endDate: Date): Task[Seq[Check]] =
+  override def getByUrlAndPeriod(url: String, beginDate: Date, endDate: Date): Task[Seq[Check]] =
     console.putStrLn(s"Query result from db by url and dates: Seq()").as(Seq[Check]())
 }
 
