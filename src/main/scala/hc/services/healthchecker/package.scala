@@ -20,7 +20,7 @@ package object healthchecker {
       override def check(endpoint: Endpoint): RIO[Checker with CheckPersistence with Clock, Unit] = {
         val checkAndSave = for {
           check <- Checker.check(endpoint.url)
-          _ <- CheckDao.create(check)
+          _ <- CheckPersistence.create(check)
         } yield ()
 
         checkAndSave.schedule(Schedule.fixed(endpoint.period.millis)).unit

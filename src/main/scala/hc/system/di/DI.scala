@@ -8,10 +8,10 @@ import hc.system.config.Config
 import hc.system.dbtransactor.DBTransactor
 import hc.system.logger.Logger
 import zhttp.service.{ChannelFactory, EventLoopGroup}
+import zio.TaskLayer
 import zio.clock.Clock
 import zio.console.Console
 import zio.logging.Logging
-import zio.{Layer, RLayer, ULayer, ZLayer}
 
 object DI {
   val logger = Logger.live
@@ -33,14 +33,7 @@ object DI {
     Console with
     Clock
 
-  val appEnv: Layer[Throwable, Logging with Config with DBTransactor with Checker with Endpoints] =
-    logger ++
-      config ++
-      transactor ++
-      checker ++
-      endpoints
-
-  val testAppEnv: ZLayer[Any, Throwable, Logging with Checker with Config with HealthChecker with CheckPersistence with Clock with Console with Endpoints] =
+  val testAppEnv: TaskLayer[TestAppEnv] =
     logger ++
       checker ++
       config ++
