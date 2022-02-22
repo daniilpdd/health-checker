@@ -40,6 +40,6 @@ object DI {
       healthChecker ++
       dummyDao ++
       Clock.live ++ Console.live ++
-      dummyEndpoints
+      endpoints
 
 }
