@@ -14,6 +14,11 @@ val configVersion = "0.17.1"
 val refinedV = "0.9.28"
 val zioJsonVersion = "0.2.0-M3"
 
+enablePlugins(JavaAppPackaging)
+enablePlugins(DockerPlugin)
+
+Compile / mainClass := Some("hc.Main")
+
 lazy val root = (project in file("."))
   .settings(
     name := "health-checker",

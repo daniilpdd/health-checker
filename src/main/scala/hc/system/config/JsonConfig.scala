@@ -1,5 +1,5 @@
 package hc.system.config
 
-final case class YamlConfig(
+final case class JsonConfig(
                            path: String
                            )
