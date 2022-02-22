@@ -1,6 +1,6 @@
 package hc.system.di
 
-import hc.persistence.check.{CheckDao, DummyPersistence}
+import hc.persistence.check.{CheckPersistence, DummyPersistence}
 import hc.services.checker.{Checker, CheckerZHttp}
 import hc.services.endpoints.{Endpoints, EndpointsDummy}
 import hc.services.healthchecker.HealthChecker
@@ -28,7 +28,7 @@ object DI {
     Checker with
     Config with
     HealthChecker with
-    CheckDao with
+    CheckPersistence with
     Endpoints with
     Console with
     Clock
@@ -40,7 +40,7 @@ object DI {
       checker ++
       endpoints
 
-  val testAppEnv: ZLayer[Any, Throwable, Logging with Checker with Config with HealthChecker with CheckDao with Clock with Console with Endpoints] =
+  val testAppEnv: ZLayer[Any, Throwable, Logging with Checker with Config with HealthChecker with CheckPersistence with Clock with Console with Endpoints] =
     logger ++
       checker ++
       config ++

@@ -5,7 +5,7 @@ import zio.{RLayer, Task, ZLayer}
 
 import java.util.Date
 
-class DummyPersistence(console: Console.Service) extends CheckDao.Service {
+class DummyPersistence(console: Console.Service) extends CheckPersistence.Service {
   override def create(check: Check): Task[Check] =
     console.putStrLn(s"Save check $check").as(check)
 
@@ -17,5 +17,5 @@ class DummyPersistence(console: Console.Service) extends CheckDao.Service {
 }
 
 object DummyPersistence {
-  val live: RLayer[Console, CheckDao] = ZLayer.fromService(new DummyPersistence(_))
+  val live: RLayer[Console, CheckPersistence] = ZLayer.fromService(new DummyPersistence(_))
 }

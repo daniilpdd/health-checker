@@ -6,20 +6,20 @@ import zio.{Has, RIO, Task}
 import java.util.Date
 
 package object check {
-  type CheckDao = Has[CheckDao.Service]
+  type CheckPersistence = Has[CheckPersistence.Service]
 
-  object CheckDao {
+  object CheckPersistence {
     trait Service {
       def create(check: Check): Task[Check]
       def getByUrl(url: String): Task[Seq[Check]]
       def getByUrlAndDate(url: String, beginDate: Date, endDate: Date): Task[Seq[Check]]
     }
 
-    def create(check: Check): RIO[CheckDao, Check] =
+    def create(check: Check): RIO[CheckPersistence, Check] =
       RIO.accessM(_.get.create(check))
-    def getByUrl(url: String): RIO[CheckDao, Seq[Check]] =
+    def getByUrl(url: String): RIO[CheckPersistence, Seq[Check]] =
       RIO.accessM(_.get.getByUrl(url))
-    def getByUrlAndDate(url: String, beginDate: Date, endDate: Date): RIO[CheckDao, Seq[Check]] =
+    def getByUrlAndDate(url: String, beginDate: Date, endDate: Date): RIO[CheckPersistence, Seq[Check]] =
       RIO.accessM(_.get.getByUrlAndDate(url, beginDate, endDate))
   }
 }
