@@ -11,9 +11,7 @@ object Main extends App {
     val program =
       for {
         endpoints <- Endpoints.load
-        fibers <- ZIO.foreachPar(endpoints) { en =>
-          HealthChecker.check(en).fork
-        }
+        fibers <- ZIO.foreachPar(endpoints)(HealthChecker.check(_).fork)
         _ <- ZIO.foreachPar_(fibers)(_.join)
       } yield ()
 
