@@ -1,0 +1,25 @@
+[{
+  "url": "https://www.google.com",
+  "period": 1500
+},
+  {
+    "url": "https://www.yandex.ru",
+    "period": 2000
+  },
+  {
+    "url": "https://habr.com",
+    "period": 1000
+  },
+  {
+    "url": "https://vk.com",
+    "period": 1000
+  },
+  {
+    "url": "https://zio.dev",
+    "period": 3000
+  },
+  {
+    "url": "https://zi1o.dev",
+    "period": 3000
+  }
+]

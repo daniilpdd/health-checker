@@ -1,7 +1,7 @@
 package hc.system.di
 
 import hc.persistence.check.{CheckPersistence, DummyPersistence}
-import hc.services.checker.{Checker, CheckerZHttp}
+import hc.services.checker.{Checker, CheckerDummy, CheckerZHttp}
 import hc.services.endpoints.{Endpoints, EndpointsDummy}
 import hc.services.healthchecker.HealthChecker
 import hc.system.config.Config
@@ -22,6 +22,8 @@ object DI {
   val healthChecker = HealthChecker.live
   val dummyDao = Console.live >>> DummyPersistence.live
   val dummyEndpoints = EndpointsDummy.live
+
+  val kek = Console.live >>> CheckerDummy.live
 
   type TestAppEnv =
     Logging with

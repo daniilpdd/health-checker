@@ -1,6 +1,6 @@
 package hc.services.checker
 
-import hc.data.Check
+import hc.data.{Check, StatusCode, Timeout}
 import zhttp.http.{Method, URL}
 import zhttp.service.Client.ClientRequest
 import zhttp.service.{ChannelFactory, Client, EventLoopGroup}
@@ -16,9 +16,9 @@ final class CheckerZHttp(client: Client) extends Checker.Service {
     for {
       _url <- ZIO.fromEither(URL.fromString(url))
       startTime <- currentTime(TimeUnit.MILLISECONDS)
-      _ <- client.request(ClientRequest(Method.GET, _url)).timeout(2.second)
+      res <- client.request(ClientRequest(Method.GET, _url)).timeoutTo(Timeout)(c => StatusCode(c.status.asJava.code()))(2.second)
       finishTime <- currentTime(TimeUnit.MILLISECONDS)
-    } yield Check(url, finishTime - startTime, new Date(startTime))
+    } yield Check(url, finishTime - startTime, new Date(startTime), res)
   }
 }
 
