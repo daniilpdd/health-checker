@@ -18,6 +18,12 @@ object Main extends App {
     program
       .tapError(err => log.error(err.toString))
       .provideLayer(DI.testAppEnv)
+      /**
+      Auto-construction cannot work with `someList: _*` syntax.
+      Please pass the layers themselves into this method.
+      .inject(DI.magicDI: _*)
+       */
+    //      .inject(DI.magicDI: _*)
       .exitCode
   }
 }

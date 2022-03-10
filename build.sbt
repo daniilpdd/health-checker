@@ -13,6 +13,8 @@ val interopVersion = "3.2.9.1"
 val configVersion = "0.17.1"
 val refinedV = "0.9.28"
 val zioJsonVersion = "0.2.0-M3"
+val zioMetrics = "1.0.14"
+val zioMagic = "0.3.11"
 
 enablePlugins(JavaAppPackaging)
 enablePlugins(DockerPlugin)
@@ -30,16 +32,14 @@ lazy val root = (project in file("."))
       "dev.zio" %% "zio-logging" % zioLoggingVersion,
       "dev.zio" %% "zio-logging-slf4j" % zioLoggingVersion,
       "ch.qos.logback" % "logback-classic" % "1.2.10",
-      "org.tpolecat" %% "doobie-core" % doobieVersion,
-      "org.tpolecat" %% "doobie-postgres" % doobieVersion,
-      "org.tpolecat" %% "doobie-refined" % doobieVersion,
-      "org.tpolecat" %% "doobie-hikari" % doobieVersion,
       "org.typelevel" %% "cats-core" % catsV,
       "org.typelevel" %% "cats-effect" % catsEffectV,
       "dev.zio" %% "zio-interop-cats" % interopVersion,
       "com.github.pureconfig" %% "pureconfig" % configVersion,
       "eu.timepit" %% "refined-pureconfig" % refinedV,
-      "dev.zio" %% "zio-json-yaml" % zioJsonVersion
+      "dev.zio" %% "zio-json-yaml" % zioJsonVersion,
+      "dev.zio" %% "zio-metrics-prometheus" % zioMetrics,
+      "io.github.kitlangton" %% "zio-magic" % zioMagic
     ),
     testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
   )

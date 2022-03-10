@@ -1,6 +1,6 @@
 package hc.services.checker
 
-import hc.data.Check
+import hc.data.{Check, StatusCode}
 import zio.clock.{Clock, currentTime}
 import zio.console.Console
 import zio.{RIO, URLayer, ZLayer}
@@ -14,7 +14,7 @@ final class CheckerDummy(console: Console.Service) extends Checker.Service {
       s <- currentTime(TimeUnit.MILLISECONDS)
       _ <- console.putStrLn(s"[dummy print] $url")
       f <- currentTime(TimeUnit.MILLISECONDS)
-    } yield Check(url, f - s, new Date(s))
+    } yield Check(url, f - s, new Date(s), StatusCode(200))
 }
 
 object CheckerDummy {
