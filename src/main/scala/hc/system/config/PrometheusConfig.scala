@@ -2,6 +2,6 @@ package hc.system.config
 
 case class PrometheusConfig(
                            host: String,
-                           port: String,
+                           port: Int,
                            jobName: String
                            )

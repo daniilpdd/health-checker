@@ -2,6 +2,7 @@ package hc.system.di
 
 //import hc.persistence.check.{CheckPersistence, DummyPersistence}
 
+import hc.persistence.check.CheckPersistence
 import hc.services.checker.{Checker, CheckerDummy, CheckerZHttp}
 import hc.services.endpoints.{Endpoints, EndpointsDummy}
 import hc.services.healthchecker.HealthChecker
@@ -13,6 +14,8 @@ import zio.clock.Clock
 import zio.console.Console
 import zio.logging.Logging
 import zio.magic._
+import zio.metrics.prometheus.Registry
+import zio.metrics.prometheus.exporters.Exporters
 
 object DI {
   val logger = Logger.live
@@ -33,6 +36,9 @@ object DI {
       Console with
       Clock
 
+  type AppEnv =
+    HealthChecker with Checker with CheckPersistence with Clock with Endpoints with Config with Logging
+
   val testAppEnv: TaskLayer[TestAppEnv] =
     logger ++
       checker ++
@@ -41,15 +47,18 @@ object DI {
       Clock.live ++ Console.live ++
       endpoints
 
-  val magicDI = ZLayer.wire[TestAppEnv](
-    Logger.live,
+  val magicDI: ZLayer[Any, Throwable, AppEnv] = ZLayer.wire[AppEnv](
     Config.live,
-    ChannelFactory.auto,
-    EventLoopGroup.auto(),
-    CheckerZHttp.live,
-    Endpoints.live,
     HealthChecker.live,
-    EndpointsDummy.live
+    Registry.live,
+    Exporters.live,
+    CheckPersistence.live,
+    CheckerZHttp.live,
+    Clock.live,
+    Endpoints.live,
+    Logger.live,
+    EventLoopGroup.auto(),
+    ChannelFactory.auto
   )
 
 }
