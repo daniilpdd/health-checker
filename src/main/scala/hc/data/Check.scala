@@ -16,6 +16,6 @@ case class Check(
                 )
 
 object Check {
-  implicit val encode: JsonEncoder[Endpoint] = DeriveJsonEncoder.gen[Endpoint]
-  implicit val decode: JsonDecoder[Endpoint] = DeriveJsonDecoder.gen[Endpoint]
+  implicit val encode: JsonEncoder[Check] = DeriveJsonEncoder.gen[Check]
+  implicit val decode: JsonDecoder[Check] = DeriveJsonDecoder.gen[Check]
 }
