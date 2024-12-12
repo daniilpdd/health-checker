@@ -1,4 +1,4 @@
-package hc.data
+package org.daniilpdd.hc.data
 
 import zio.json.{DeriveJsonDecoder, DeriveJsonEncoder, JsonDecoder, JsonEncoder}
 

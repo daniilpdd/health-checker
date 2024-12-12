@@ -1,7 +1,7 @@
-package hc.persistence
+package org.daniilpdd.hc.persistence
 
-import hc.data.Check
-import hc.system.config.PrometheusConfig
+import org.daniilpdd.hc.data.Check
+import org.daniilpdd.hc.system.config.PrometheusConfig
 import zio.metrics.prometheus.Registry
 import zio.metrics.prometheus.exporters.Exporters
 import zio.{Has, RIO, Task, URLayer, ZLayer}

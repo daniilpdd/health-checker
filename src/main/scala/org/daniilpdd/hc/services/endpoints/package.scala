@@ -1,7 +1,7 @@
-package hc.services
+package org.daniilpdd.hc.services
 
-import hc.data.Endpoint
-import hc.system.config.{Config, JsonConfig}
+import org.daniilpdd.hc.data.Endpoint
+import org.daniilpdd.hc.system.config.{Config, JsonConfig}
 import zio.json.DecoderOps
 import zio.{Has, RIO, ULayer, ZIO, ZLayer}
 

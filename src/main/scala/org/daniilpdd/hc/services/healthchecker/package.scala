@@ -1,11 +1,11 @@
-package hc.services
+package org.daniilpdd.hc.services
 
-import hc.data.Endpoint
-import hc.services.checker.Checker
+import org.daniilpdd.hc.data.Endpoint
+import org.daniilpdd.hc.persistence.check.CheckPersistence
+import org.daniilpdd.hc.services.checker.Checker
 import zio.clock.Clock
 import zio.duration.durationLong
 import zio.{Has, RIO, Schedule, ULayer, ZIO, ZLayer}
-import hc.persistence.check.CheckPersistence
 
 package object healthchecker {
 

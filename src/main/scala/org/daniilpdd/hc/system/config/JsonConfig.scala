@@ -1,4 +1,4 @@
-package hc.system.config
+package org.daniilpdd.hc.system.config
 
 final case class JsonConfig(
                            path: String

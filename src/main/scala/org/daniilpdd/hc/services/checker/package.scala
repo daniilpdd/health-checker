@@ -1,6 +1,6 @@
-package hc.services
+package org.daniilpdd.hc.services
 
-import hc.data.Check
+import org.daniilpdd.hc.data.Check
 import zio.clock.Clock
 import zio.duration.durationInt
 import zio.{Has, RIO, Schedule}

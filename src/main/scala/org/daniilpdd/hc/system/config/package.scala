@@ -1,4 +1,4 @@
-package hc.system
+package org.daniilpdd.hc.system
 
 import pureconfig.generic.auto._
 import pureconfig.ConfigSource

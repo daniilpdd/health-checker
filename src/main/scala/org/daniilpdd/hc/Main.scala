@@ -1,11 +1,11 @@
-package hc
+package org.daniilpdd.hc
 
-import hc.persistence.check.CheckPersistence
-import hc.services.checker.Checker
-import hc.services.endpoints.Endpoints
-import hc.services.healthchecker.HealthChecker
-import hc.system.config.JsonConfig
-import hc.system.di.DI
+import org.daniilpdd.hc.persistence.check.CheckPersistence
+import org.daniilpdd.hc.services.checker.Checker
+import org.daniilpdd.hc.services.endpoints.Endpoints
+import org.daniilpdd.hc.services.healthchecker.HealthChecker
+import org.daniilpdd.hc.system.config.JsonConfig
+import org.daniilpdd.hc.system.di.DI
 import zio.clock.Clock
 import zio.logging.log
 import zio.{App, ExitCode, Has, URIO, ZIO}

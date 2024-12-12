@@ -1,4 +1,4 @@
-package hc.system.logger
+package org.daniilpdd.hc.system.logger
 
 import zio.clock.Clock
 import zio.console.Console

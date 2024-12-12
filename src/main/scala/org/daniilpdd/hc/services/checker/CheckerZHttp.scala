@@ -1,6 +1,6 @@
-package hc.services.checker
+package org.daniilpdd.hc.services.checker
 
-import hc.data.{Check, StatusCode, Timeout}
+import org.daniilpdd.hc.data.{Check, StatusCode, Timeout}
 import zhttp.http.{Method, URL}
 import zhttp.service.Client.ClientRequest
 import zhttp.service.{ChannelFactory, Client, EventLoopGroup}

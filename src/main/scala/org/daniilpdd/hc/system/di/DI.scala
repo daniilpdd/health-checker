@@ -1,13 +1,13 @@
-package hc.system.di
+package org.daniilpdd.hc.system.di
 
 //import hc.persistence.check.{CheckPersistence, DummyPersistence}
 
-import hc.persistence.check.CheckPersistence
-import hc.services.checker.{Checker, CheckerDummy, CheckerZHttp}
-import hc.services.endpoints.{Endpoints, EndpointsDummy}
-import hc.services.healthchecker.HealthChecker
-import hc.system.config.Config
-import hc.system.logger.Logger
+import org.daniilpdd.hc.services.checker.{Checker, CheckerDummy, CheckerZHttp}
+import org.daniilpdd.hc.services.endpoints.{Endpoints, EndpointsDummy}
+import org.daniilpdd.hc.persistence.check.CheckPersistence
+import org.daniilpdd.hc.services.healthchecker.HealthChecker
+import org.daniilpdd.hc.system.config.Config
+import org.daniilpdd.hc.system.logger.Logger
 import zhttp.service.{ChannelFactory, EventLoopGroup}
 import zio.{TaskLayer, ZLayer}
 import zio.clock.Clock
@@ -47,7 +47,7 @@ object DI {
       Clock.live ++ Console.live ++
       endpoints
 
-  val magicDI: ZLayer[Any, Throwable, AppEnv] = ZLayer.wire[AppEnv](
+  val magicDI = ZLayer.wire[AppEnv](
     Config.live,
     HealthChecker.live,
     Registry.live,

@@ -1,6 +1,6 @@
-package hc.services.checker
+package org.daniilpdd.hc.services.checker
 
-import hc.data.{Check, StatusCode}
+import org.daniilpdd.hc.data.{Check, StatusCode}
 import zio.clock.{Clock, currentTime}
 import zio.console.Console
 import zio.{RIO, URLayer, ZLayer}
