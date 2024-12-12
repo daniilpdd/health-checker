@@ -1,5 +1,7 @@
 # Health checker service
 
+# TODO MOVE TO ZIO 2
+
 Сервис для проверки состояния эндпоинтов. 
 Текущие фичи:
  - Конфигурация сервиса pureconfig
