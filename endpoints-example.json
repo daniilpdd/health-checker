@@ -2,5 +2,9 @@
   {
     "url": "https://www.google.com",
     "period": 1500
+  },
+  {
+    "url": "https://zio.dev",
+    "period": 1000
   }
 ]
