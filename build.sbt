@@ -4,5 +4,5 @@ organization := "org.daniilpdd"
 name := "healthchecker"
 
 libraryDependencies ++= Seq(
-  "dev.zio" %% "zio" % "2.1.14",
+  "dev.zio" %% "zio" % "2.1.14"
 )
