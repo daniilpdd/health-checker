@@ -1,4 +1,6 @@
+# idea
 .idea
+# sbt build
 project/target
 target
-.bsp/sbt.json
+.bsp
